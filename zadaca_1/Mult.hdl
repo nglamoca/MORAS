@@ -1,0 +1,64 @@
+CHIP Mult{
+
+    IN  a[16], b[16]; 
+    OUT out[16];
+
+//1010 * 1011
+// ---------
+//     1010 partial prod. 
+//    1010
+//   0000
+//  1010
+//----------
+//1101110
+
+    PARTS: 
+    Mux16(a=false, b=a, sel=b[0], out=out0); //b[0] 
+    BitShiftL(in=a, out=shift1); //shiftanje
+    Mux16(a=false, b= shift1, sel=b[1], out=out1); //b[1]...
+    BitShiftL(in=shift1, out=shift2);
+    Mux16(a=false, b= shift2, sel=b[2], out=out2);
+    BitShiftL(in=shift2, out=shift3);
+    Mux16(a=false, b= shift3, sel=b[3], out=out3);
+    BitShiftL(in=shift3, out=shift4);
+    Mux16(a=false, b= shift4, sel=b[4], out=out4);
+    BitShiftL(in=shift4, out=shift5);
+    Mux16(a=false, b= shift5, sel=b[5], out=out5);
+    BitShiftL(in=shift5, out=shift6);
+    Mux16(a=false, b= shift6, sel=b[6], out=out6);
+    BitShiftL(in=shift6, out=shift7);
+    Mux16(a=false, b= shift7, sel=b[7], out=out7);
+    BitShiftL(in=shift7, out=shift8);
+    Mux16(a=false, b= shift8, sel=b[8], out=out8);
+    BitShiftL(in=shift8, out=shift9);
+    Mux16(a=false, b= shift9, sel=b[9], out=out9);
+    BitShiftL(in=shift9, out=shift10);
+    Mux16(a=false, b= shift10, sel=b[10], out=out10);
+    BitShiftL(in=shift10, out=shift11);
+    Mux16(a=false, b= shift11, sel=b[11], out=out11);
+    BitShiftL(in=shift11, out=shift12);
+    Mux16(a=false, b= shift12, sel=b[12], out=out12);
+    BitShiftL(in=shift12, out=shift13);
+    Mux16(a=false, b= shift13, sel=b[13], out=out13);
+    BitShiftL(in=shift13, out=shift14);
+    Mux16(a=false, b= shift14, sel=b[14], out=out14);
+    BitShiftL(in=shift14, out=shift15);
+    Mux16(a=false, b= shift15, sel=b[15], out=out15);
+
+  //zbrajanje svih rezul. mnozenja indeksa b u shifta
+    Add16(a=out0, b=out1, out= Add0);
+    Add16(a=Add0, b=out2, out=Add1);
+    Add16(a=Add1, b=out3, out=Add2);
+    Add16(a=Add2, b=out4, out=Add3);
+    Add16(a=Add3, b=out5, out=Add4);
+    Add16(a=Add4, b=out6, out=Add5);
+    Add16(a=Add5, b=out7, out=Add6);
+    Add16(a=Add6, b=out8, out=Add7);
+    Add16(a=Add7, b=out9, out=Add8);
+    Add16(a=Add8, b=out10, out=Add9);
+    Add16(a=Add9, b=out11, out=Add10);
+    Add16(a=Add10, b=out12, out=Add11);
+    Add16(a=Add11, b=out13, out=Add12);
+    Add16(a=Add12, b=out14, out=Add13);
+    Add16(a=Add13, b=out15, out=out); //rezultat
+}
