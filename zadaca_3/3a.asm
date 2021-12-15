@@ -25,7 +25,7 @@ M = 1   // j postavi na jedinicu
     D; JGE   
 
     @LoopS
-    0; JMP   // bezuvjetno skoci na kraj 
+    0; JMP   
 
 
 (LoopS)
