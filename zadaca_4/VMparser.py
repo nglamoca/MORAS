@@ -296,8 +296,8 @@ class Parser:
 
 def main():
     P = Parser()
-    P.parseFile("Mid")
-    P.writeFile("Mid")
+    P.parseFile("fib")
+    P.writeFile("fib")
    
     
 
