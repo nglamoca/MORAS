@@ -1,0 +1,18 @@
+function fibonacci 1
+ push argument 0
+ push constant 2
+ lt
+ if-goto N_LESS_THAN2
+ push argument 0
+ push constant 2
+ sub
+ call fib.fibonacci 1
+ push argument 0
+ push constant 1
+ sub
+ call fib.fibonacci 1
+ add
+ return
+ label N_LESS_THAN2
+ push argument 0
+ return
