@@ -1,9 +1,9 @@
 class Parser:
     def __init__(self):
-        self._labels = []
         self._olines = []
         self._lab = 0
         self._flag = True     # Je li parsiranje uspjesno?
+        self._labels = []
 
     def parseFile(self, filename):
         # Otvaramo datoteku s ekstenzijom ".vm".
@@ -55,11 +55,11 @@ class Parser:
         return True
     
     def _getLabels(self):
-        for (line,n) in self.ilines:
-            l=line.split("//")[0].split()
-            if not(len(l)==0 or len(l[0])==0):
-                if l[0] == "label" and len(l)==2:
-                    self._labels.append(l[1])
+      for (line, n) in self._ilines:
+          l = line.split("//")[0].split()
+          if not (len(l) == 0 or len(l[0]) == 0):
+              if l[0] == "label" and len(l) == 2:
+                  self._labels.append(l[1])
 
     # IMPLEMENTIRATI!
     # Za sada parsiramo SAMO push, pop i aritmeticko/logicke naredbe...
@@ -77,25 +77,25 @@ class Parser:
         if l[0] == "push":
             if len(l) == 3:
                 if not l[2].isnumeric():
-                    self._flag = False
-                    Parser._error("Parser",n,"Invalid command arg")
-                    return ""
+                  self._flag = False
+                  Parser._error("Parser", n, "Invalid command argument")
+                  return ""
                 return "//" + " ".join(l) + "\n" + self._push(l[1], l[2], n)
             else:
                 self._flag = False
-                Parser._error("Parser", n, "Undefined command");
+                Parser._error("Parser", n, "Undefined command")
                 return ""
 
         elif l[0] == "pop":
             if len(l) == 3:
                 if not l[2].isnumeric():
-                    self._flag = False
-                    Parser._error("Parser",n,"Invalid command arg")
-                    return ""
+                  self._flag = False
+                  Parser._error("Parser", n, "Invalid command argument")
+                  return ""
                 return "//" + " ".join(l) + "\n" + self._pop(l[1], l[2], n)
             else:
                 self._flag = False
-                Parser._error("Parser", n, "Undefined command");
+                Parser._error("Parser", n, "Undefined command")
                 return ""
         
         elif len(l) > 1 or l[0] == "return":
@@ -103,14 +103,14 @@ class Parser:
                 return "//" + " ".join(l) + "\n" + self._label(l[1], n)
             elif l[0] == "goto" and len(l) == 2:
                 if not l[1] in self._labels:
-                    self._flag = False
-                    Parser._error("Parser",n,"Jump to undefined label")
-                    return ""
+                  self._flag = False
+                  Parser._error("Parser", n, "Jumping to undefined label")
+                  return ""
                 return "//" + " ".join(l) + "\n" + self._goto(l[1], n)
             elif l[0] == "if-goto" and len(l) == 2:
                 if not l[1] in self._labels:
                     self._flag = False
-                    Parser._error("Parser",n,"Jump to undefined label")
+                    Parser._error("Parser", n, "Jumping to undefined label")
                     return ""
                 return "//" + " ".join(l) + "\n" + self._ifgoto(l[1], n)
             elif l[0] == "function" and len(l) == 3:
@@ -192,7 +192,7 @@ class Parser:
             l = "@" + str(3 + int(loc)) + "\nD=M"
         else:
             self._flag = False
-            Parser._error("Push", n, "Undefined source \"" + src + "\".");
+            Parser._error("Push", n, "Undefined source \"" + src + "\".")
             return ""
         return l + "@SP\nM=M+1\nA=M-1\nM=D"
 
@@ -218,7 +218,7 @@ class Parser:
             l = "@SP\nAM=M-1\nD=M\n@" + str(3 + int(loc)) + "\nM=D"
         else:
             self._flag = False
-            Parser._error("Push", n, "Undefined destination \"" + dst + "\".");
+            Parser._error("Push", n, "Undefined destination \"" + dst + "\".")
             return ""
         return l
 
@@ -269,7 +269,7 @@ class Parser:
             l = "@256\nD=A\n@SP\nM=D"
         else:
             self._flag = False
-            Parser._error("Push", n, "Undefined command \"" + comm + "\".");
+            Parser._error("Push", n, "Undefined command \"" + comm + "\".")
             return ""
         return l
 
@@ -292,6 +292,7 @@ class Parser:
             print("[" + src + "] " + msg)
         else:
             print(msg)
+
 
 def main():
     P = Parser()
