@@ -1,0 +1,58 @@
+class Quicksort{
+  
+  function Array rec(Array A, int low, int high)
+  {
+    var int i, p, temp;
+    var Array B, C;
+    
+    if(low < high)
+    {
+      let p = high;
+      let i = high - 1;
+      
+      while(i + 1 > low)
+      {
+        if(A[i] > A[p])
+        {
+          
+          let temp = A[i];
+          let A[i] = A[p-1];
+          let A[p-1] = temp;
+          let temp = A[p];
+          let A[p] = A[p-1];
+          let A[p-1] = temp;
+          let p = p-1;
+        }
+        
+        let i = i - 1;
+      }
+      
+      let B = Quicksort.rec(A, low, p - 1); //left side of pivot
+      let C = Quicksort.rec(A, p + 1, high); //right side of pivot
+      
+      let i = low;
+      while(i - 1 < p - 1)
+      {
+        let A[i] = B[i];
+        let i = i + 1;
+      }
+      
+      let i = p + 1;
+      while(i - 1 < high)
+      {
+        let A[i] = C[i];
+        let i = i+1;
+      }
+      
+    }
+    
+    return A;
+  }
+
+  function Array sort(Array A, int size)
+  {
+    let A = Quicksort.rec(A, 0, size - 1);
+    return A;
+  }
+  
+}
