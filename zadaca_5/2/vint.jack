@@ -1,0 +1,129 @@
+class vint
+{
+  field Array A;
+  field int capacity;
+  
+  
+  constructor vint new(int n)
+  {
+    let capacity = 1;
+    
+      if(~(n < 0))
+      {
+      while(n > 0)
+      {
+        let capacity = capacity * 2;
+        let n = n - 1;
+      }
+    }
+    
+    let A = Array.new(capacity); 
+    return this;
+  }
+  
+  
+  method int len()
+  {  
+    return capacity;
+  }
+  
+  method void set(int k,int v)
+  {  
+     let A[k]=v;
+     return;
+  }
+  
+  method int get(int k)
+  {
+    return A[k];
+  }
+  
+
+   method void resize(int m)
+   {
+    var int tmp, i;
+    var Array B;
+    
+    let tmp = capacity;
+    let capacity = 1;
+    
+    if(~(m < 0)){
+      while(m > 0){
+        let capacity = capacity * 2;
+        let m = m - 1;
+      }
+    }
+    
+    let B = Array.new(capacity);
+    let i = 0;
+    
+    while(i < tmp){
+      let B[i] = A[i];
+      let i = i + 1;
+    }
+    
+    let A = B;
+    do B.dispose();
+    return;
+  }
+
+  function bool is_eq(vint vec, vint v)
+  {
+    var int i;
+    
+    if(~(vec.len() = v.len()))
+    {
+      return false;
+    }
+    
+    let i = 0;
+    
+    while(i < vec.len())
+    {
+      if(~(vec[i] = v[i]))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  
+  method Array get_array()
+  {
+    return A;
+  }
+  
+  
+  function bool elems(vint vec, vint v)
+  {
+    var Array C, D;
+    var int n, i, j;
+    var bool rez;
+    
+    if(~(vec.len() = v.len()))
+    {
+      return false;
+    }
+    
+    let C = vec.get_array();
+    let D = v.get_array();
+    
+    let C = Quicksort.sort(C, vec.len());
+    let D = Quicksort.sort(D, v.len());
+    
+    let i = 0;
+    let rez = true;
+    
+    while(i < n){
+      if(~(C[i] = D[i])) 
+      {
+        let rez = false;
+      }
+      let i = i + 1;
+    }
+    do C.dispose();
+    do D.dispose();
+    return rez;
+  }
+}

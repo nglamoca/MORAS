@@ -1,0 +1,46 @@
+class Main {
+  function void main() {
+    
+    var bool check;
+    var vint vec, v, ve;
+    
+    let vec = vint.new(2);
+    let v = vint.new(2);
+    let ve=vint.new(2);
+
+    do vec.set(0, 7);
+    do vec.set(1, 8);
+    do vec.set(2, 9);
+    
+    do ve.set(0,8);
+    do ve.set(1,9);
+    do ve.set(2,7);
+    
+
+    do v.set(0, 5);
+    do v.set(1, 6);
+    do v.set(2, 7);
+    
+
+    let check = vint.is_eq(vec, v);
+    if(check){
+      do Output.printString("Eq, True");
+    } else {
+      do Output.printString("Eq, False");
+    }
+    do Output.println();
+    
+   
+    let check = vint.elems(v, ve);
+    if(check){
+      do Output.printString("Elems, True");
+    } else {
+      do Output.printString("Elems, False");
+    }
+    do Output.println();
+    
+    
+    
+    return;
+  }
+}
